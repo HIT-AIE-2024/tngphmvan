@@ -1,3 +1,4 @@
+from nltk import wordpunct_tokenize
 from nltk.tokenize import WhitespaceTokenizer, WordPunctTokenizer, TreebankWordTokenizer
 from nltk.stem import WordNetLemmatizer, PorterStemmer
 from typing import List
@@ -22,6 +23,9 @@ class TextProcessor:
         self.stemmer = PorterStemmer()
         self.lemmatizer = WordNetLemmatizer()
         self.nlp = spacy.load("en_core_web_sm")
+        self.whitespace_tokenizer = WhitespaceTokenizer()
+        self.wordpunct_tokenizer = WordPunctTokenizer()
+        self.treebank_tokenizer = TreebankWordTokenizer()
 
     def whitespace_tokenize(self) -> List[str]:
         """
@@ -30,7 +34,7 @@ class TextProcessor:
         Returns:
             List[str]: A list of tokens.
         """
-        return WhitespaceTokenizer().tokenize(self.text)
+        return self.whitespace_tokenizer.tokenize(self.text)
 
     def wordpunct_tokenize(self) -> List[str]:
         """
@@ -39,7 +43,7 @@ class TextProcessor:
         Returns:
             List[str]: A list of tokens.
         """
-        return WordPunctTokenizer().tokenize(self.text)
+        return self.wordpunct_tokenizer.tokenize(self.text)
 
     def treebank_tokenize(self) -> List[str]:
         """
@@ -48,7 +52,7 @@ class TextProcessor:
         Returns:
             List[str]: A list of tokens.
         """
-        return TreebankWordTokenizer().tokenize(self.text)
+        return self.treebank_tokenizer.tokenize(self.text)
 
     def word_stem(self, mode: str = "whitespace") -> List[str]:
         """
